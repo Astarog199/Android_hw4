@@ -8,4 +8,5 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="yellow">#FFEB3B</color>
     <color name="orange">#C36800</color>
+    <color name="grey"> #444444 </color>
 </resources>
