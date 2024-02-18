@@ -128,7 +128,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Об авторизации на устройстве"
-        android:textColor="@color/black"
         android:theme="@style/MyCheckboxStyle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/notifications"

@@ -25,26 +25,26 @@ private var name = ""
 private var phone = ""
 private var gender = ""
 private var progress = 0
-var flag = false
+private var flag = false
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var linearProgressLayout: ProgressBar
+    private lateinit var linearProgressLayout: ProgressBar  //Инициализация ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val nameEditText = findViewById<EditText>(R.id.inputName)
-        val phoneEditText = findViewById<EditText>(R.id.inputPhone)
-        val buttonRegistration = findViewById<Button>(R.id.buttonRegistration)
-        val mySwitch = findViewById<SwitchCompat>(R.id.notifications)
-        val notification_1 = findViewById<CheckBox>(R.id.notification_1)
-        val notification_2 = findViewById<CheckBox>(R.id.notification_2)
+        val nameEditText = findViewById<EditText>(R.id.inputName)     // Инициализация текстовое поле "имя"
+        val phoneEditText = findViewById<EditText>(R.id.inputPhone)  //Инициализация текстовое поле "телефон"
+        val buttonRegistration = findViewById<Button>(R.id.buttonRegistration) //Инициализация кнопки "сохранить"
+        val mySwitch = findViewById<SwitchCompat>(R.id.notifications)    // Инициализация Switch включает/выключает уведомления
+        val notification_1 = findViewById<CheckBox>(R.id.notification_1) // Инициализация CheckBox уведомление 1
+        val notification_2 = findViewById<CheckBox>(R.id.notification_2) // Инициализация CheckBox уведомление 2
 
         linearProgressLayout = findViewById(R.id.progressBar)
-        binding.valueProgress.text = progress.toString()
+        binding.valueProgress.text = progress.toString() //обновляет значение valueProgress
         findViewById<EditText>(R.id.inputName)
 
         findViewById<Button>(binding.buttonTheme.id).setOnClickListener {
@@ -55,8 +55,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-
-
+        /**
+         * Выбор пола
+         */
         val radioGroup = findViewById<RadioGroup>(binding.radioGroup.id)
         radioGroup.setOnCheckedChangeListener { _, buttonId ->
             when (buttonId) {
@@ -85,6 +86,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /**
+         * Уведомление 1
+         */
         notification_1.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 setProgeressValue(20)
@@ -93,6 +97,9 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        /**
+         * Уведомление 2
+         */
         notification_2.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
                 setProgeressValue(20)
@@ -101,13 +108,14 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
-
+        /**
+         * Слушатель клика для кнопки сохранить id.buttonRegistration
+         */
         buttonRegistration.setOnClickListener {
-            val user = reg(name, phone, gender)
-
             name = nameEditText.text.toString()
             phone = phoneEditText.text.toString()
             if (name.isNotBlank() && phone.isNotBlank() && checkNotification()) {
+                val user = reg(name, phone, gender) // создаём объект пользователя
                 Toast.makeText(
                     this,
                     "Пользователь ${user.getName()} зарегистрирован",
@@ -130,6 +138,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Метод выводит полученое сообщение
+     */
     private fun showSnackbar(message: String) {
         gender = message
         if (!flag) {
@@ -143,10 +154,13 @@ class MainActivity : AppCompatActivity() {
         return User(name, phone, gender)
     }
 
+    /**
+     * Метод обновляет ProgressBar
+     */
     fun setProgeressValue(p: Int) {
         progress += p
         linearProgressLayout.setProgress(progress)
-        findViewById<TextView>(R.id.valueProgress).text = progress.toString()
+        findViewById<TextView>(R.id.valueProgress).text = progress.toString() //обновляет значение valueProgress
     }
 
     private fun sleep (mills: Long){
